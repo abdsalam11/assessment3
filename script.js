@@ -1,4 +1,4 @@
-// // Get form and input elements
+// Get form and input elements
 let registrationForm = document.getElementById("registrationForm");
 let fullnameInput = document.getElementById("fullname");
 let emailInput = document.getElementById("email");
@@ -31,11 +31,9 @@ function checkFullname() {
         return false;
     }
     else {
-        console.log("Name:", name);
         return true;
     }
 }
-
 
 // Validate email
 function checkEmail() {
@@ -51,7 +49,6 @@ function checkEmail() {
         return false;
     }
     else {
-        console.log("Email:", email);
         return true;
     }
 }
@@ -79,11 +76,9 @@ function checkPassword() {
         return false;
     }
     else {
-        console.log("Password confirmed");
         return true;
     }
 }
-
 
 // Validate age
 function checkAge() {
@@ -98,25 +93,25 @@ function checkAge() {
         return false;
     }
     else {
-        console.log("Age:", age);
         return true;
     }
 }
 
-
-
-// Main submit function
+// Main submit function  to Validate all fields - return immediately if any validation fails
 function submitForm() {
-    // Validate all fields
-    const isFullnameValid = checkFullname();
-    const isEmailValid = checkEmail();
-    const isPasswordValid = checkPassword();
-    const isAgeValid = checkAge();
+    if (!checkFullname()) return;
+    if (!checkEmail()) return;
+    if (!checkPassword()) return;
+    if (!checkAge()) return;
     
-    // If all validations pass, clear the form
-    if (isFullnameValid && isEmailValid && isPasswordValid && isAgeValid) {
-        console.log("Form submitted successfully!");
-        alert("Form submitted successfully!");
-        clearForm(); // Clear all input fields
-    }
+    // If all validations pass, log the results
+    console.log("Form submitted with the following data:");
+    console.log("Full Name:", fullnameInput.value.trim());
+    console.log("Email:", emailInput.value.trim());
+    console.log("Age:", parseInt(ageInput.value.trim()));
+    
+    // Display success message
+    alert("Form submitted successfully!");
+    // Clear all input fields
+    clearForm();
 }
