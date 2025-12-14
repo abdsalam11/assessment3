@@ -89,7 +89,7 @@ function checkAge() {
         return false;
     }
     else if (isNaN(age) || age < 18) {
-        alert("Age must be a number and greater than or equal to 18");
+        alert("must be 18 or older");
         return false;
     }
     else {
