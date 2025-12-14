@@ -1,99 +1,122 @@
+// // Get form and input elements
+let registrationForm = document.getElementById("registrationForm");
+let fullnameInput = document.getElementById("fullname");
+let emailInput = document.getElementById("email");
+let passwordInput = document.getElementById("password");
+let confirmPasswordInput = document.getElementById("confirmPassword");
+let ageInput = document.getElementById("age");
 
-// const error = document.getElementById("errorMsg");
+// Add event listener to the submit button
 document.getElementById("submitBtn").addEventListener("click", submitForm);
-document.getElementById("registrationForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-});
 
+// Function to clear all input fields
+function clearForm() {
+    fullnameInput.value = "";
+    emailInput.value = "";
+    passwordInput.value = "";
+    confirmPasswordInput.value = "";
+    ageInput.value = "";
+}
 
-// Must not be empty and contain at least 2 words.
-
-  function checkFullname() {
-    let name = document.getElementById("fullname").value.trim();
+// Validate fullname
+function checkFullname() {
+    let name = fullnameInput.value.trim();
 
     if (name === "") {
         alert("Name cannot be empty.");
+        return false;
     } 
     else if (name.length < 2) {
         alert("Name must be at least 2 characters.");
+        return false;
     }
     else {
-        console.log(name)
+        console.log("Name:", name);
+        return true;
     }
 }
-checkFullname()
 
 
-// check if email is valid
-
+// Validate email
 function checkEmail() {
-    let email = document.getElementById("email").value.trim();
+    let email = emailInput.value.trim();
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email === "") {
         alert("Email cannot be empty.");
+        return false;
     } 
     else if (!emailRegex.test(email)) {
         alert("Please enter a valid email address.");
+        return false;
     }
     else {
-        console.log(email)
+        console.log("Email:", email);
+        return true;
     }
 }
 
-checkEmail()
-
-// check for password and confirm password
-
-
+// Validate password and confirm password
 function checkPassword() {
-    let password = document.getElementById("password").value.trim();
-    let confirmPassword = document.getElementById("confirmPassword").value.trim();
+    let password = passwordInput.value.trim();
+    let confirmPassword = confirmPasswordInput.value.trim();
     let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
-    
 
     if (password === "") {
-        alert("please enter passsword");
+        alert("Please enter password");
+        return false;
     }
     else if (!passwordRegex.test(password)) {
         alert("Password must be at least 6 characters, include 1 uppercase letter, 1 number, and 1 special character (!@#$%^&*).");
+        return false;
     }
     else if (confirmPassword === "") {
-        alert("confirm password again")
+        alert("Please confirm your password");
+        return false;
     }
     else if (password !== confirmPassword) {
-        alert("confirm password again")
+        alert("Passwords do not match");
+        return false;
     }
     else {
-        console.log("password")
+        console.log("Password confirmed");
+        return true;
     }
-
 }
 
-checkPassword()
 
-// check if age is greater than 18
-
+// Validate age
 function checkAge() {
-    let age = document.getElementById("age").value.trim();
+    let age = parseInt(ageInput.value.trim());
 
-    if (age === "") {
-        alert("please select your age")
+    if (ageInput.value === "") {
+        alert("Please enter your age");
+        return false;
     }
-    else if (age < 18) {
-        alert("age must be greater than 18")
+    else if (isNaN(age) || age < 18) {
+        alert("Age must be a number and greater than or equal to 18");
+        return false;
     }
     else {
-        console.log(age)
+        console.log("Age:", age);
+        return true;
     }
 }
 
-checkAge()
 
 
-function submitForm(){
-    checkFullname()
-    checkEmail()
-    checkPassword()
-    checkAge()
+// Main submit function
+function submitForm() {
+    // Validate all fields
+    const isFullnameValid = checkFullname();
+    const isEmailValid = checkEmail();
+    const isPasswordValid = checkPassword();
+    const isAgeValid = checkAge();
+    
+    // If all validations pass, clear the form
+    if (isFullnameValid && isEmailValid && isPasswordValid && isAgeValid) {
+        console.log("Form submitted successfully!");
+        alert("Form submitted successfully!");
+        clearForm(); // Clear all input fields
+    }
 }
